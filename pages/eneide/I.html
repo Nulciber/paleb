@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Énéide - Liber Primus</title>
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <style>
+        /* 1. Alignement vertical de base pour tout le tableau */
+        main table td,
+        main table th {
+            vertical-align: baseline !important;
+
+        }
+
+        /* 2. Style des colonnes étroites (alignement à droite) */
+        .col-espacement {
+            width: 3ch;
+            padding: 0 !important;
+            margin: 0;
+            border: none;
+            background: transparent;
+            text-align: right !important;
+            font-size: 0.95rem;
+        }
+
+        /* 3. Style des paragraphes dans le tableau (UNIQUEMENT pour le texte principal) */
+        main table td p {
+            margin-bottom: 0.5em;
+            margin-top: 0;
+        }
+
+        .page-header-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        main table td p {
+            margin-bottom: 0.5em;
+
+
+        }
+
+        /* STYLE DE LA BULLE */
+        #ma-bulle-flottante {
+            position: fixed;
+            display: none;
+            background-color: #E0ECFF;
+            color: #003366;
+            border: 1px solid #99BBFF;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 51, 102, 0.3);
+            font-family: Georgia, serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            width: 300px !important;
+            max-width: 90vw;
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            word-break: break-word !important;
+            text-align: left;
+            z-index: 999999;
+            pointer-events: none;
+            font-weight: normal;
+        }
+
+        .declencheur-bulle {
+            border-bottom: 1px dashed #003366;
+            cursor: help;
+            font-weight: normal;
+            background-color: rgba(224, 236, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="ma-bulle-flottante"></div>
+    <div id="header"></div>
+
+    <main>
+        <div class="page-header-container">
+            <h1>Énéide</h1>
+            <p>Traduction française de Marc Chouet</p>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <!-- Colonne d'espacement gauche (alignée à droite) -->
+                        <th class="col-espacement">&nbsp;</th>
+                        <th>L'arrivée en Afrique</th>
+                        <!-- Colonne d'espacement milieu (alignée à droite) -->
+                        <th class="col-espacement">&nbsp;</th>
+                        <th>Liber primus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-espacement">&nbsp;</td>
+                        <td>
+                            <p>
+                                <span id="info-1" class="declencheur-bulle">Je chante les combats et l'homme</span> qui
+                                d'abord<br>
+                                Chassé par le destin des rivages de Troie<br>
+                                S'en vint en Italie, aux plages laviniennes.<br>
+                                Longtemps les Dieux d'en haut, par la terre et les flots<br>
+                                Le traînèrent, en proie au courrou de Junon<br>
+                                Et lontemps il pâtit des malheurs de la guerre<br>
+                                Jusqu'à ce qu'il fondât sa ville et transportât<br>
+                                ses Dieux au Latinium d'où la race latine, <br>
+                                les Albins nos aïeux et les hauts murs de Rome.<br>
+                            </p>
+                        </td>
+                        <td class="col-espacement">&nbsp;</td>
+                        <td>
+                            <p>
+                                arma uirumque cano; Troiæ qui primus ab oris<br>
+                                Italiam fato profugus Lauiniaquæ venit<br>
+                                litora; multum ille et terris iactatus et alto<br>
+                                ui superum; sæuæ memorem Iunonis ob iram<br>
+                                multa quoque et bello passus: dum conderet urbem<br>
+                                inferretque deos Latio: genus unde Latinum<br>
+                                Albinaque patres atque altæ mœnia Romæ
+                            <div class=""></div><br>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-espacement">&nbsp;10</td>
+                        <td>
+                            <p><span id="info-3" class="declencheur-bulle">Muse</span>, rappelle-moi les causes, quelle
+                                offense<br>
+                                Quelle blessure a fait que la reine des Dieux<br>
+                                Contraignit ce héros à l'insigne piété<br>
+                                A subir tant de maux, à souffir tant d'épreuve?<br>
+                                Les Dieux connaissent-ils de tels ressentiments?<br>
+                            </p>
+                        </td>
+                        <td class="col-espacement">&nbsp;8 </td>
+                        <td>
+                            <p>musa, mihi causas memora, quo numine læso<br>
+                                quidue dolens regina deum tot uoluere causus<br>
+                                insignem pietate uirum, tot adire labores<br>
+                                impulerit. Tantæne animis cælestibus iræ?<br>
+
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-espacement">&nbsp;15</td>
+                        <td>
+                            <p>Une antique cité de colons tyriens<br>
+                                <span id="info-2" class="declencheur-bulle">Carthage</span>, regardait l'Italie et, de
+                                loin,<br>
+                                L'embouchure du Tibre; elle était opulente,<br>
+                                Et d'une ardeur terrible aux travaux de la guerre.<br>
+                                Junon la préférait à tout autre séjour<br>
+                                Dit-on, même à Samos; c'est là qu'étaient ses armes,<br>
+                                C'est là qu'était son char; et déjà la déesse<br>
+                                Travaille avec chaleur à lui donner un jour,<br>
+                                Si le destin le veut, l'empire de la terre.<br>
+                            </p>
+                        </td>
+                        <td class="col-espacement">&nbsp;</td>
+                        <td>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-espacement">&nbsp;24</td>
+                        <td>
+                            <p>Mais elle avait appris que du sang des Troyens<br>
+                                Une race naissait qui devait renverser<br>
+                                Ce haut réduit de Tyr, et qu'il en sortirait<br>
+                                Un peuple conquérant, superbe pour la guerre<br>
+                                Funeste à la Lybie: ainsi filaeint les Parques<br>
+                            </p>
+                        </td>
+                        <td class="col-espacement">&nbsp;</td>
+                        <td>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-espacement">&nbsp;29</td>
+                        <td>
+                            <p>Alarmée et songeant aux combats que jadis<br>
+                                Elle avait devant Troie affrontés pour ses Grecs,<br>
+                                Les causes de sa haine et ses peines cuisantes<br>
+                                Deumeuraient dans son âme; elle gardait au cœur<br>
+                                Le verdict de Pâris, affront à sa beauté,<br>
+                                Une race odieuse, enfin de Ganymède<br>
+                                Le rapt et les honneurs. Elle en brûlait encore<br>
+                                Et sur toute la mer ballottait les Troyens,<br>
+                                Reste des Danaens et du cruel Achille,<br>
+                                Bien loin du Latium: et depuis des années<br>
+                                Les destins les poussaient de rivage en rivage.<br>
+                                Tant d'efforts dut coûter la naissance de Rome!<br>
+                            </p>
+                        </td>
+                        <td class="col-espacement">&nbsp;</td>
+                        <td>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-espacement">&nbsp;41</td>
+                        <td>
+                            <p>
+                                À peine hors de vue des côtes de Sicile<br>
+                                Ils faisaient voile vers le large, tout joyeux<br>
+                                Et la mer écumait sous l'étrave d'érain.<br>
+                                Junon, gardant au cœur sa blessure éternelle<br>
+                                Se dit : «Moi, m'avouer vaicue, et renoncer<br>
+                                A fermer l'Italie au roi des Teucriens?<br>
+                                Sans doute les destins m'en empêchent! Pallas<br>
+                                N'a-t-elle pu brûler la flotte des Argiens,<br>
+                                N'a-t-elle pu les engloutir au fond des flots<br>
+                                Pour les fureurs du seul Ajax, fils d'Oïlée?<br>
+                                Elle a lancé du ciel le feu de Jupiter,<br>
+                                Dispersé les vaisseaux, bouleversé la mer<br>
+                                Et dans un tourbillon saisi le malheureux<br>
+                                Dont le cœur transpersé laissait jaillir des flammes,<br>
+                                Pour le clouer enfin à la pointe d'un roc.<br>
+                                Et moi qui chez les dieux m'avance en souveraine,<br>
+                                Qui suis de Jupiter et la sœur et l'épouse,<br>
+                                Je combats un seul peuple, et depuis tant d'année!<br>
+                                Qui voudra de Junon honorer la puissance<br>
+                                Ou charger ses autels d'offrandes suppliantes?»<br>
+                            </p>
+                        </td>
+                        <td class="col-espacement">&nbsp;</td>
+                        <td>
+                            <p>
+                                <br>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- Script pour les info-bulles (spécifique à cette page) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var bulle = document.getElementById('ma-bulle-flottante');
+            var configBulles = [
+                { id: 'info-1', texte: "Virgile fait référence aux deux grandes épopées grecques : l'Iliade (les combats) et l'Odyssée (l'homme). C'est l'incipit célèbre de l'œuvre." },
+                { id: 'info-2', texte: "Carthage était une puissante cité-État phénicienne située dans l'actuelle Tunisie. Rivale de Rome, elle fut détruite en 146 av. J.-C. Junon la protégeait car c'était là qu'étaient ses armes et son char." },
+                { id: 'info-3', texte: "Virgile appelle la Muse (Calliope), divinité inspiratrice de la poésie épique, pour qu'elle lui raconte les causes des malheurs d'Énée." }
+            ];
+
+            configBulles.forEach(function (item) {
+                var element = document.getElementById(item.id);
+                if (element && bulle) {
+                    element.addEventListener('mouseover', function () {
+                        bulle.innerHTML = item.texte;
+                        bulle.style.display = 'block';
+                    });
+                    element.addEventListener('mouseout', function () {
+                        bulle.style.display = 'none';
+                    });
+                    element.addEventListener('mousemove', function (e) {
+                        bulle.style.left = (e.clientX + 15) + 'px';
+                        bulle.style.top = (e.clientY - 15) + 'px';
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- AJOUT CRUCIAL : Appel du fichier JS pour charger le menu -->
+    <script src="../../js/main.js"></script>
+</body>
+
+</html>
