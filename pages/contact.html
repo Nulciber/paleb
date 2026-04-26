@@ -3,27 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neologicon - Contact</title>
+  <title>paleb — Contact</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-  <!-- HEADER chargé dynamiquement -->
   <div id="header"></div>
 
-  <!-- CONTENU -->
   <main>
     <h1>Contact</h1>
     <p>Pierre-Antoine Bourquin<br>
     Route du Village 8-10<br>
-    1968 Mase<br>
-    pabourquin@infomaniak.ch
+    1968 Mase</p>
+    <p>
+      <a href="#" id="email-link">Afficher l'adresse e-mail</a>
+    </p>
   </main>
 
-  <!-- FOOTER chargé dynamiquement -->
   <div id="footer"></div>
 
-  <!-- JS -->
   <script src="../js/main.js"></script>
+  <script>
+    // Protection basique de l'email contre les bots
+    document.getElementById('email-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      const u = 'pabourquin';
+      const d = 'infomaniak.ch';
+      this.href = 'mailto:' + u + '@' + d;
+      this.textContent = u + '@' + d;
+    });
+  </script>
 </body>
 </html>

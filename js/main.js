@@ -1,34 +1,25 @@
-// Neologicon JS - Structure Souple
-console.log('Neologicon prêt');
+// paleb JS
+console.log('paleb prêt');
 
 document.addEventListener("DOMContentLoaded", () => {
-  
-  // --- 1. CALCUL DYNAMIQUE DE LA PROFONDEUR (Structure Souple) ---
+
+  // --- 1. CALCUL DYNAMIQUE DE LA PROFONDEUR ---
   const path = window.location.pathname;
-  
-  // On isole le répertoire courant (sans le nom du fichier)
   const dirPath = path.substring(0, path.lastIndexOf('/'));
-  
-  // On découpe le chemin en segments et on filtre les vides
   const segments = dirPath.split('/').filter(segment => segment.length > 0);
-  
-  // On construit la chaîne de remontée : chaque segment = un "../"
-  // Si on est à la racine (segments.length === 0), base sera ""
+
   let base = "";
   if (segments.length > 0) {
     base = segments.map(() => "../").join("");
   }
 
-  // Fonction utilitaire pour charger un fragment HTML
-  function loadFragment(id, path, callback) {
+  // --- 2. CHARGEMENT DES FRAGMENTS HTML ---
+  function loadFragment(id, fragPath, callback) {
     const container = document.getElementById(id);
     if (container) {
-      fetch(path)
+      fetch(fragPath)
         .then(res => {
-          if (!res.ok) {
-            console.error(`Erreur chargement ${path}: ${res.status}`);
-            throw new Error(`Impossible de charger ${path}`);
-          }
+          if (!res.ok) throw new Error(`Impossible de charger ${fragPath}`);
           return res.text();
         })
         .then(html => {
@@ -39,48 +30,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- 2. DÉFINITION DES CHEMINS VERS LES FRAGMENTS ---
-  // Ces chemins s'adaptent automatiquement grâce à la variable 'base'
-  const headerPath = base + "partials/header.html";
-  const footerPath = base + "partials/footer.html";
-  const animaginauxPath = base + "partials/animaginaux-nav.html";
-  const glossairePath = base + "partials/glossaire-nav.html";
-
   // --- 3. TABLE DE ROUTAGE ---
-  // Les clés sont les valeurs de data-link, les valeurs sont les chemins relatifs
   const routes = {
-    index: "index.html",
-    eneide: "pages/eneide/eneide.html",
-    glossaire: "pages/glossaire/glossaire.html",
-    chorale: "pages/chorale/chorale.html",
-    "chorale-info": "pages/chorale/info.html",
-    "chorale-prochaineMesse": "pages/chorale/prochaineMesse.html",
-    "chorale-psaumes": "pages/chorale/psaumes.html"
+    index:                   "index.html",
+    eneide:                  "pages/eneide/eneide.html",
+    glossaire:               "pages/glossaire/glossaire.html",
+    chorale:                 "pages/chorale/chorale.html",
+    "chorale/chorale":       "pages/chorale/chorale.html",
+    "chorale/info":          "pages/chorale/info.html",
+    "chorale/prochaineMesse":"pages/chorale/prochaineMesse.html",
+    "chorale/psaumes":       "pages/chorale/psaumes.html",
+    contact:                 "pages/contact.html",
+    legendes:                "pages/legendes/legendes.html",
+    animaginaux:             "pages/animaginaux/animaginaux.html",
   };
 
-  // Fonction utilitaire pour mettre à jour les liens d'un conteneur
   function updateLinks(containerSelector) {
     const container = document.querySelector(containerSelector);
     if (!container) return;
-
     container.querySelectorAll("a[data-link]").forEach(a => {
       const target = a.getAttribute("data-link");
       if (routes[target]) {
         a.href = base + routes[target];
       } else {
-        // Fallback générique si la route n'est pas définie explicitement
         a.href = base + `pages/${target}.html`;
       }
     });
   }
 
-  // --- 4. CHARGEMENT DES FRAGMENTS ---
-
-  // Charger le header
-  loadFragment("header", headerPath, () => {
+  // --- 4. CHARGEMENT DU HEADER ---
+  loadFragment("header", base + "partials/header.html", () => {
     updateLinks("nav");
 
-    // Ré-attacher le menu hamburger
+    // Mettre à jour le logo dynamiquement
+    const logoImg = document.getElementById('logo-img');
+    if (logoImg) logoImg.src = base + 'assets/img/logo.png';
+
+    // Menu hamburger
     const hamburger = document.querySelector(".hamburger");
     const navLinks = document.querySelector(".nav-links");
     if (hamburger && navLinks) {
@@ -88,64 +74,47 @@ document.addEventListener("DOMContentLoaded", () => {
         navLinks.classList.toggle("show");
       });
     }
+
+    // Fermer le menu hamburger en cliquant ailleurs
+    document.addEventListener('click', (e) => {
+      if (navLinks && !e.target.closest('.navbar')) {
+        navLinks.classList.remove('show');
+      }
+    });
+
+    // --- 5. MENUS DÉROULANTS (Mobile) ---
+    // Attaché ici car le header vient d'être injecté
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+      const link = dropdown.querySelector('.dropbtn');
+      if (link) {
+        link.addEventListener('click', (e) => {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const content = dropdown.querySelector('.dropdown-content');
+            if (!content) return;
+            const isVisible = content.style.display === 'block';
+            document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+            content.style.display = isVisible ? 'none' : 'block';
+          }
+        });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+      }
+    });
   });
 
-  // Charger le footer
-  loadFragment("footer", footerPath, () => {
+  // --- FOOTER ---
+  loadFragment("footer", base + "partials/footer.html", () => {
     updateLinks("footer");
   });
 
-  // Charger la bannière Animaginaux
-  loadFragment("animaginaux-nav", animaginauxPath);
-
-  // Charger les bannières Glossaire (haut et bas)
-  // Note: Vérifiez que vos IDs HTML correspondent bien (glossaire-nav-top / bottom)
-  loadFragment("glossaire-nav-top", glossairePath);
-  loadFragment("glossaire-nav-bottom", glossairePath);
-
-  // --- 5. LOGS DEBUG (Optionnel) ---
-  if (path.endsWith("index.html") || path === "/" || path === "") {
-    console.log("Bienvenue sur la page d'accueil !");
-  } else if (path.includes("animaginaux")) {
-    console.log("Page Animaginaux détectée");
-  } else if (path.includes("glossaire")) {
-    console.log("Page Glossaire détectée");
-  } else if (path.includes("legendes")) {
-    console.log("Page Légendes détectée");
-  }
-});
-
-// --- 6. GESTION DES MENUS DÉROULANTS (Mobile) ---
-document.addEventListener('DOMContentLoaded', () => {
-  const dropdowns = document.querySelectorAll('.dropdown');
-
-  dropdowns.forEach(dropdown => {
-    const link = dropdown.querySelector('.dropbtn');
-    
-    if (link) {
-      link.addEventListener('click', (e) => {
-        // Vérifie si on est sur un écran mobile (moins de 769px)
-        if (window.innerWidth <= 768) {
-          e.preventDefault(); // Empêche la navigation immédiate
-          
-          const content = dropdown.querySelector('.dropdown-content');
-          if (!content) return;
-
-          const isVisible = content.style.display === 'block';
-          
-          // Ferme les autres sous-menus ouverts
-          document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
-          
-          content.style.display = isVisible ? 'none' : 'block';
-        }
-      });
-    }
-  });
-
-  // Fermer les menus si on clique ailleurs sur la page
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.dropdown')) {
-      document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
-    }
-  });
+  // --- NAVIGATIONS SECONDAIRES ---
+  loadFragment("animaginaux-nav", base + "partials/animaginaux-nav.html");
+  loadFragment("glossaire-nav-top", base + "partials/glossaire-nav.html");
+  loadFragment("glossaire-nav-bottom", base + "partials/glossaire-nav.html");
 });
